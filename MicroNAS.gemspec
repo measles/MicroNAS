@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.author	= "Some guy"
   s.summary     = "Simple small NAS software"
   s.description = "Simple ruby script to make somple NAS from your computer"
-  s.files       = Dir.glob("{bin,doc,lib,locales}/**/*")
+  s.files       = Dir.glob("{lib,webui,bin}/**/*")
+  s. executables << "micronas.sh"
   s.license       = 'GPLv3'
 end

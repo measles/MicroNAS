@@ -1,5 +1,5 @@
 require 'sinatra'
-require '../lib/users'
+require 'users'
 
 set :port, 8080
 

@@ -10,3 +10,16 @@ def get_system_users
 	return user_list
 end
 
+def get_live_users
+	user_list = Array.new()
+	raw_user_list = get_system_users
+	home_list = Dir.entries("/home")
+
+	raw_user_list.each do |user|
+		if home_list.include?(user[0]) then
+			user_list << user
+		end
+	end
+
+	return user_list
+end

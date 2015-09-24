@@ -2,8 +2,7 @@ def get_system_users
 	user_list = Array.new()
 	raw_list = IO.readlines("/etc/passwd")
 	raw_list.each{|line|
-		raw_user = line.split":"
-		user = [raw_user[0],raw_user[4]]
+		user = line.split":"
 		user_list << user
 	}
 
@@ -13,10 +12,9 @@ end
 def get_live_users
 	user_list = Array.new()
 	raw_user_list = get_system_users
-	home_list = Dir.entries("/home")
 
 	raw_user_list.each do |user|
-		if home_list.include?(user[0]) then
+		if user[5] =~ /\/home\/./ and File.directory?(user[5]) then
 			user_list << user
 		end
 	end

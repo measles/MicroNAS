@@ -1,4 +1,4 @@
-def get_system_users
+def get_all_users
 	user_list = Array.new()
 	raw_list = IO.readlines("/etc/passwd")
 	raw_list.each{|line|
@@ -11,10 +11,17 @@ end
 
 def get_live_users
 	user_list = Array.new()
-	raw_user_list = get_system_users
+	uid_min = nil
+	raw_user_list = get_all_users
+
+	IO.readlines("/etc/login.defs").each do |line|
+		if line =~ /^UID_MIN/ then
+			uid_min = line[/\d{2,}/].to_i
+		end
+	end
 
 	raw_user_list.each do |user|
-		if user[5] =~ /\/home\/./ and File.directory?(user[5]) then
+		if  user[2].to_i >= uid_min and user[2].to_i < 65534 then
 			user_list << user
 		end
 	end
